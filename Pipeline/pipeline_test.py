@@ -6,7 +6,7 @@ import time
 print('Starting Reconstruction...')
 tic = time.clock()
 #starting OpenMVG
-command = "openMVG_main_SfMInit_ImageListing -i '{}' -d '{}' -o '{}' ".format(image_dir,camera_dir,matches_dir)
+command = "openMVG_main_SfMInit_ImageListing -i '{}' -d '{}' -o '{}' -f '{}' ".format(image_dir,camera_dir,matches_dir,(1.2*4000))
 process = subprocess.call(command, shell=True)
 
 command = "openMVG_main_ComputeFeatures -i '{}' -o '{}'".format(matches_dir + '/sfm_data.json',matches_dir)
@@ -24,7 +24,7 @@ process = subprocess.call(command, shell=True)
 print('Starting OpenMVS...')
 #starting OpenMVS
 
-os.chdir(output_dir)
+#os.chdir(output_dir)
 command = "DensifyPointCloud scene.mvs"
 process = subprocess.call(command, shell=True)
 
@@ -35,4 +35,4 @@ command = "TextureMesh scene_dense_mesh.mvs"
 process = subprocess.call(command, shell=True)
 
 toc = time.clock()
-print('Completed in {} minutes').format( (toc - tic)/60 )
+print('Completed in {} minutes'.format( (toc - tic)/60 ))
